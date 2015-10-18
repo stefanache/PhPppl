@@ -1,7 +1,9 @@
 <?php
-  $max_mtRandom=mt_getrandmax();
-  function mtRandom($int_min=0,$int_max=$max_mtRandom){
-    $int_result=mt_rand($int_min,$int_max);
-    return $int_result; 
+ /*
+ Mersenne Twister : A very fast random number generator Of period 219937-1
+ */
+  $int_maxMTRand=mt_getrandmax();
+  function int_mtRandom($int_min=0,$int_max=$int_maxMTRand){
+    return mt_rand($int_min,$int_max);
   }
 ?>
