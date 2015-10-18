@@ -15,6 +15,11 @@
           $cr_obj=new class_CR();
           $cr_rng=$cr_obj->intCR_rng;
           echo 'Cryptographic secure preudo-rng = '.$cr_rng.';<br/>';
-          */                    
+          */ 
+          //
+	  require_once('RNG.php');
+          $RNG_obj=new class_RNG('rand');
+          $rand_rng=$RNG_obj->rng;
+          echo "Randon Number Generator rand-rng=".$rand_rng.';<br/>';                   
 	
 ?>
