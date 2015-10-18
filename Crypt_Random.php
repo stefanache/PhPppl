@@ -17,7 +17,7 @@
     public $type_rng="cryptographically secure pseudo-random integer";
     
     public function __construct($int_min=0,$int_max=null){
-      $this->intCR_rng=$this->int_CRrand($int_min,$int_max);
+      $this->int_CRrand($int_min,$int_max);
       return $this;
     }
     //
@@ -30,7 +30,8 @@
       $intMAX=$this->int_maxCRrand(); 
       $int_max = (func_num_args() >= 2 && $int_max)? func_get_arg(1): $intMAX;
       $int_max = min($int_max,$intMAX);
-      return random_int($int_min,$int_max);
+      $this->intCR_rng=random_int($int_min,$int_max);
+      return $this->intCR_rng;
     }
   }
 ?>
