@@ -13,6 +13,7 @@
       $int_seed=$this->float_makeSeed();
       $this->void_seedMTRand($int_seed);
       $this->intMT_rng=$this->int_MTRand($int_min,$int_max);
+      return $this;
     }
     public function int_maxMTRand(){
       return mt_getrandmax();
