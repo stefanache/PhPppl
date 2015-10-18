@@ -34,7 +34,9 @@
     //
     public function int_makeSeed(){
       list($usec, $sec) = explode(' ', microtime());
-      return (int) $sec + ((int) $usec * 100000);
+      $int_seed=(int) $sec + ((int) $usec * 100000);
+      $int_seed=min($int_seed,$this->int_maxMTRand());
+      return $int_seed;
     }
     
     public function void_seedMTRand(){
