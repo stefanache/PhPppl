@@ -8,7 +8,7 @@
           $mt_rng=$mt_obj->intMT_rng;
           echo 'Mersenne Twister RandomNumberGenerator: '.$mt_rng;
     */
-    public $intMT_rng;
+    public $intMT_rng=null;
     public function __construct($int_min=0,$int_max=null, $int_seed=null){
       $int_seed=$this->float_makeSeed();
       $this->void_seedMTRand($int_seed);
