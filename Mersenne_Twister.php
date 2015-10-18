@@ -5,8 +5,9 @@
     */
     public $intMT_rng;
     public function __construct($int_min=0,$int_max=null, $int_seed=null){
-       $this->void_seedMTRand($int_seed);
-       $this->intMT_rng=$this->int_MTRand($int_min,$int_max);
+      $int_seed=$this->float_makeSeed();
+      $this->void_seedMTRand($int_seed);
+      $this->intMT_rng=$this->int_MTRand($int_min,$int_max);
     }
     public function int_maxMTRand(){
       return mt_getrandmax();
@@ -21,7 +22,7 @@
       return (float) $sec + ((float) $usec * 100000);
     }
     public function void_seedMTRand(){
-      $int_seed = (func_num_args() >= 1)? func_get_arg(0):$this->float_makeSeed();
+      $int_seed = (func_num_args() >= 1)? func_get_arg(0):null;
       return ($int_seed)?mt_srand($int_seed):mt_srand();
     }
 
