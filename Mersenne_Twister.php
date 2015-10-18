@@ -1,7 +1,7 @@
 <?php
   class $class_MT{
     /*
-    Mersenne Twister : A very fast random number generator Of period 219937-1
+    Mersenne Twister : A very fast random number generator Of period 2^19937-1
     */
     public $intMT_rng;
     public function __construct($int_min=0,$int_max=null, $int_seed=null){
