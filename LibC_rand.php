@@ -1,7 +1,7 @@
 <?php
   class class_LibCrand{
     /*
-       LibC-Random : Generate a random integer(no large) using libC
+       LibC-random : Generate a random integer(no large) using libC
                      in range [optional $int_min,optional $int_max] 
                      with optional seed(initialization)
     
