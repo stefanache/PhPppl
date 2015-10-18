@@ -13,8 +13,12 @@
     */
     public $intLibC_rng=null;
     public $type_rng="slow no large random integer";
-    
+    public $seed_min=0;
+    public $seed_max=null;
+        
     public function __construct($int_min=0,$int_max=null, $int_seed=null){
+      $this->seed_min=0;
+      $this->seed_max=$this->int_maxLibCrand();     
       $int_seed=$this->int_makeSeed();
       $this->void_seedLibCRand($int_seed);
       $this->int_LibCRand($int_min,$int_max);
@@ -26,9 +30,11 @@
     }
     
     public function int_LibCRand($int_min=0,$int_max=null){
-      $int_min = (func_num_args() >= 1)? func_get_arg(0): 0;
-      $intMAX=$this->int_maxLibCRand(); 
+      $intMIN=$this->seed_min;    
+      $int_min = (func_num_args() >= 1)? func_get_arg(0): $intMIN;
+      $intMAX=$this->seed_max; 
       $int_max = (func_num_args() >= 2 && $int_max)? func_get_arg(1): $intMAX;
+      $int_max = min($int_max,$intMAX);
       $int_max = min($int_max,$intMAX);
       $this->intLibC_rng=rand($int_min,$int_max);
       return $this->intLibC_rng;
@@ -37,12 +43,13 @@
     public function int_makeSeed(){
       list($usec, $sec) = explode(' ', microtime());
       $int_seed=(int) $sec + ((int) $usec * 100000);
-      $int_seed=min($int_seed,$this->int_maxLibCRand());
       return $int_seed;
     }
     
     public function void_seedLibCRand(){
       $int_seed = (func_num_args() >= 1)? func_get_arg(0):null;
+      $int_seed=min($int_seed,$this->seed_max);
+      $int_seed=max($int_seed,$this->seed_min);      
       return ($int_seed) ? srand($int_seed) : srand();
     }
 
