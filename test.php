@@ -17,12 +17,24 @@
           echo 'Cryptographic secure preudo-rng = '.$cr_rng.';<br/>';
           */ 
           //
+		function rng_assert_handler($file, $line, $code, $desc = null){
+    			echo "<hr>Assertion Failed:
+       			File: '$file'<br />
+        		Line: '$line'<br />
+        		Code: '$code'<br />";
+			if ($desc) {
+			    echo "Msg. : '$desc'<br />";
+			}        		
+        		echo "<hr />\n";
+		}          
 	  require_once('RNG.php');
-          $RNG_obj=new class_RNG('rand');
+          $RNG_obj=new class_RNG('rand','rng_assert_handler');
           $rand_rng=$RNG_obj->rng;
           echo "Randon Number Generator rand-rng=".$rand_rng.';<br/>';
           $rand_rng=$RNG_obj->random();                   
 	  echo " ...and again rand-rng=".$rand_rng.';<br/>';
           $rand_rng=$RNG_obj->random();                   
-	  echo " ...and so on  rand-rng=".$rand_rng.';<br/>';	    
+	  echo " ...and so on  rand-rng=".$rand_rng.';<br/>';
+	  
+	  $RNG_obj->assertValidRandomSeed(-1);	    
 ?>
