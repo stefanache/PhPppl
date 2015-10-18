@@ -14,6 +14,7 @@
           echo 'Cryptographic secure preudo-rng = '.$cr_rng.';<br/>';
     */
     public $intCR_rng=null;
+    public $type_rng="cryptographically secure pseudo-random integer";
     
     public function __construct($int_min=0,$int_max=null){
       $this->intCR_rng=$this->int_CRrand($int_min,$int_max);
