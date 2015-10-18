@@ -2,7 +2,7 @@
   /*
   Mersenne Twister : A very fast random number generator Of period 219937-1
   */
-  $class_MT = new stdClass();
+   $class_MT = new stdClass();
    $class_MT->int_maxMTRand = function int_maxMTRand(){
                                 return mt_getrandmax();
                               }
