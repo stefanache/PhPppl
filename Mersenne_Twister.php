@@ -2,11 +2,11 @@
   class class_MT{
     /*
     Mersenne Twister : A very fast random number generator Of period 2^19937-1
-    // standard usage:
+    // testing usage:
           require_once('Mersenne_Twister.php');
           $mt_obj=new class_MT();
           $mt_rng=$mt_obj->intMT_rng;
-          echo $mt_rng;
+          echo 'Mersenne Twister RandomNumberGenerator: '.$mt_rng;
     */
     public $intMT_rng;
     public function __construct($int_min=0,$int_max=null, $int_seed=null){
