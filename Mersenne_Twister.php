@@ -12,7 +12,8 @@
           echo 'Mersenne Twister rng = '.$mt_rng.';<br/>';
     */
     public $intMT_rng=null;
-    public $type_rng="cryptographically secure pseudo-random integer";
+    public $type_rng="fast random integer";
+    
     public function __construct($int_min=0,$int_max=null, $int_seed=null){
       $int_seed=$this->int_makeSeed();
       $this->void_seedMTRand($int_seed);
