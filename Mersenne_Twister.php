@@ -17,7 +17,7 @@
     public function __construct($int_min=0,$int_max=null, $int_seed=null){
       $int_seed=$this->int_makeSeed();
       $this->void_seedMTRand($int_seed);
-      $this->intMT_rng=$this->int_MTRand($int_min,$int_max);
+      $this->int_MTRand($int_min,$int_max);
       return $this;
     }
     //
@@ -30,8 +30,10 @@
       $intMAX=$this->int_maxMTRand(); 
       $int_max = (func_num_args() >= 2 && $int_max)? func_get_arg(1): $intMAX;
       $int_max = min($int_max,$intMAX);
-      return mt_rand($int_min,$int_max);
+      $this->intMT_rng=mt_rand($int_min,$int_max);
+      return $this->intMT_rng;
     }
+
     //
     public function int_makeSeed(){
       list($usec, $sec) = explode(' ', microtime());
