@@ -1,9 +1,9 @@
 <?php
   class class_LibCrand{
     /*
-       Mersenne Twister : Generate a random integer(no large) using libc
-                          in range [optional $int_min,optional $int_max] 
-                          with optional seed(initialization)
+       LibC-Random : Generate a random integer(no large) using libc
+                     in range [optional $int_min,optional $int_max] 
+                     with optional seed(initialization)
     
        usage: 
           require_once('LibC_rand.php');
