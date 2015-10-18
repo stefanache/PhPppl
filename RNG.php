@@ -18,7 +18,8 @@
 		public $have_supportSeed=false;
 		public $seedrandom_fct=null;
 		
-		public function __construct($generator_name='mt_rand',$int_min=0,$int_max=null){
+
+		public function __construct($generator_name='mt_rand',$rng_assert_handler,$int_min=0,$int_max=null){
 			$this->generator_name=$generator_name;
 			$arrGen_pars=$this->getGeneratorParameters($this->generator_name);
 			$this->library_filename=$arrGen_pars[0];
@@ -31,6 +32,12 @@
 			$this->RNG_obj=new $this->class_name($int_min,$int_max);
 						
 			$this->rng($int_min,$int_max);
+						
+			// Active assert and make it quiet
+			assert_options(ASSERT_ACTIVE, 1);
+			assert_options(ASSERT_WARNING, 0);
+			assert_options(ASSERT_QUIET_EVAL, 1);
+			assert_options(ASSERT_CALLBACK, $rng_assert_handler);			
 		}
 		public function getGeneratorParameters($generator_name='mt_rand'){
 			$dir_files=$this->dir_files;
@@ -80,17 +87,29 @@
 			return $this->rng;
 		}
 		public function seedRNG($seed) {
-		 	if(!$have_supportSeed){
-		 		$msg = "The".$this->generator_name." generator don't have seed support.";
-		 		echo $msg;
+		 	if(!$this->have_supportSeed){
+		 		$error_msg = "The".$this->generator_name." generator don't have seed support.";
+		 		//echo $this->assert_msg ;
+		 		assert(false,$error_msg);
 		 	}else{
 		  		$this->seedrandom_fct($seed);
-		  		resetRNG();
+		  		$this->resetRNG();
 		  	}
 		}
 		public function resetRNG() {
 		  	$this->rng = $this->rng();
 		}	
 		
+		public function assertValidRandomSeed($seed) {
+		        
+			if(!$this->have_supportSeed){
+		 		$this->assert_msg = "The".$this->generator_name." generator don't have seed support.";
+		 		assert(false);
+		 	}else{
+  				$assert_msg = 'Random seed should be a positive integer in [ '.$this->RNG_obj->seed_min.' ; '.$this->RNG_obj->seed_max.' ] !';
+  				$assert_expr='is_finite('.$seed.') && '.$seed.' >= '.$this->RNG_obj->seed_min.' && '.$seed.' <= '.$this->RNG_obj->seed_max.' ';
+  				assert($assert_expr ,$assert_msg);
+  			}
+		}
 	}	
 ?>
