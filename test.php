@@ -20,6 +20,9 @@
 	  require_once('RNG.php');
           $RNG_obj=new class_RNG('rand');
           $rand_rng=$RNG_obj->rng;
-          echo "Randon Number Generator rand-rng=".$rand_rng.';<br/>';                   
-	
+          echo "Randon Number Generator rand-rng=".$rand_rng.';<br/>';
+          $rand_rng=$RNG_obj->random();                   
+	  echo " ...and again rand-rng=".$rand_rng.';<br/>';
+          $rand_rng=$RNG_obj->random();                   
+	  echo " ...and so on  rand-rng=".$rand_rng.';<br/>';	    
 ?>
