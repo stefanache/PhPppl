@@ -1,7 +1,7 @@
 <?php
   class class_LibCrand{
     /*
-       LibC-random : Generate a random integer(no large) using libC
+       LibC-Random : Generate a random integer(no large) using libc
                      in range [optional $int_min,optional $int_max] 
                      with optional seed(initialization)
     
@@ -17,7 +17,7 @@
     public function __construct($int_min=0,$int_max=null, $int_seed=null){
       $int_seed=$this->int_makeSeed();
       $this->void_seedLibCRand($int_seed);
-      $this->intLibC_rng=$this->int_LibCRand($int_min,$int_max);
+      $this->int_LibCRand($int_min,$int_max);
       return $this;
     }
     //
@@ -30,7 +30,8 @@
       $intMAX=$this->int_maxLibCRand(); 
       $int_max = (func_num_args() >= 2 && $int_max)? func_get_arg(1): $intMAX;
       $int_max = min($int_max,$intMAX);
-      return rand($int_min,$int_max);
+      $this->intLibC_rng=rand($int_min,$int_max);
+      return $this->intLibC_rng;
     }
     //
     public function int_makeSeed(){
