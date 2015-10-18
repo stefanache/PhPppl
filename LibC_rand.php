@@ -12,6 +12,7 @@
           echo 'LibC rng = '.$libCrand_rng.';<br/>'; 
     */
     public $intLibC_rng=null;
+    public $type_rng="slow random integer";
     
     public function __construct($int_min=0,$int_max=null, $int_seed=null){
       $int_seed=$this->int_makeSeed();
