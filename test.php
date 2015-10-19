@@ -17,24 +17,31 @@
           echo 'Cryptographic secure preudo-rng = '.$cr_rng.';<br/>';
           */ 
           //
-		function rng_assert_handler($file, $line, $code, $desc = null){
-    			echo "<hr>Assertion Failed:
-       			File: '$file'<br />
-        		Line: '$line'<br />
-        		Code: '$code'<br />";
-			if ($desc) {
-			    echo "Msg. : '$desc'<br />";
-			}        		
-        		echo "<hr />\n";
-		}          
+	  function rng_assert_handler($file, $line, $code, $desc = null){
+		echo "<hr>Assertion Failed:
+		File: '$file'<br />
+		Line: '$line'<br />
+		Code: '$code'<br />";
+		if ($desc) {
+		    echo "Msg. : '$desc'<br />";
+		}        		
+		echo "<hr />\n";
+	  }          
 	  require_once('RNG.php');
-          $RNG_obj=new class_RNG('rand','rng_assert_handler');
-          $rand_rng=$RNG_obj->rng;
-          echo "Randon Number Generator rand-rng=".$rand_rng.';<br/>';
+	  $seed=700;//null
+	  $min=0;
+	  $max=10000;
+          $RNG_obj=new class_RNG('rand','rng_assert_handler',$seed,$min,$max);
+          $rand_rng=$RNG_obj->random();
+          echo "Randon Number Generator libc::rand-rng=".$rand_rng.' with seed='.$seed.', from ['.$min.','.$max.'] range;<br/>';
           $rand_rng=$RNG_obj->random();                   
-	  echo " ...and again rand-rng=".$rand_rng.';<br/>';
-          $rand_rng=$RNG_obj->random();                   
-	  echo " ...and so on  rand-rng=".$rand_rng.';<br/>';
-	  
-	  $RNG_obj->assertValidRandomSeed(-1);	    
+	  echo " ...and again libc::rand-rng=".$rand_rng.' with seed='.$seed.', from ['.$min.','.$max.'] range;<br/>';
+	  $RNG_obj->resetRNG();
+	  $subunitary_precision=3;
+          $rand_rng=$RNG_obj->random($subunitary_precision);                   
+	  echo " continue...  libc::rand-rng=".$rand_rng.' with subunitary-precision of '.$subunitary_precision.' without seed(because it was resetted), from ['.$min.','.$max.'] range(but moved into [0,1]);<br/>';
+	  $subunitary_precision++;
+	  $rand_rng=$RNG_obj->random($subunitary_precision);                   
+	  echo " ...and so on again libc::rand-rng=".$rand_rng.' with subunitary-precision of '.$subunitary_precision.' without seed, from ['.$min.','.$max.'] range(but moved into [0,1]);<br/>';
+	  	    
 ?>
