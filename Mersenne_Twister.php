@@ -13,9 +13,12 @@
     */
     public $intMT_rng=null;
     public $type_rng="fast random integer";
+    public $int_min=0;
+    public $int_max=null;
+    public $int_seed=null;
     public $seed_min=0;
     public $seed_max=null;
-    
+       
     public function __construct($int_min=0,$int_max=null, $int_seed=null){
       $this->seed_min=0;
       $this->seed_max=$this->int_maxMTRand(); 
@@ -36,7 +39,9 @@
       $intMAX=$this->seed_max;
       $int_max = (func_num_args() >= 2 && $int_max)? func_get_arg(1): $intMAX;
       $int_max = min($int_max,$intMAX);
-      $this->intMT_rng=mt_rand($int_min,$int_max);
+      $this->int_min=$int_min;
+      $this->int_max=$int_max;
+      $this->intMT_rng=mt_rand($this->int_min,$this->int_max);
       return $this->intMT_rng;
     }
 
@@ -44,14 +49,17 @@
     public function int_makeSeed(){
       list($usec, $sec) = explode(' ', microtime());
       $int_seed=(int) $sec + ((int) $usec * 100000);
+      $this->void_seedMTRand($int_seed);
       return $int_seed;
     }
     
     public function void_seedMTRand(){
       $int_seed = (func_num_args() >= 1)? func_get_arg(0):null;
       $int_seed=min($int_seed,$this->seed_max);
-      $int_seed=max($int_seed,$this->seed_min);      
-      return ($int_seed) ? mt_srand($int_seed) : mt_srand();
+      $int_seed=max($int_seed,$this->seed_min);
+      $this->int_seed=$int_seed;     
+      ($this->int_seed) ? mt_srand($this->int_seed) : mt_srand();
+      return $this->int_MTRand($this->int_min,$this->int_max);
     }
 
   }
